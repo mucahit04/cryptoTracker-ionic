@@ -1,0 +1,45 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title> Crypto Coin Tracker </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" [scrollY]="false">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Crypto Coin Tracker</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="wrapper">
+    <ion-label>Live crypto coin tracker. </ion-label>
+    <ion-label>Select a coin to see the rate changes of it live!</ion-label>
+
+    <div class="chart-container">
+      <ion-select
+        name="coin"
+        id=""
+        [(ngModel)]="selectedCoin"
+        (ngModelChange)="onSelect($event)"
+        interface="action-sheet"
+      >
+        <ion-select-option [value]="null" [disabled]="true"
+          >Select a coin</ion-select-option
+        >
+        <ion-select-option [value]="o.toLowerCase()" *ngFor="let o of coinList"
+          >{{ o }}</ion-select-option
+        >
+      </ion-select>
+
+      <canvas
+        baseChart
+        width="400"
+        height="400"
+        [data]="lineChartData"
+        [options]="lineChartOptions"
+        [type]="lineChartType"
+      ></canvas>
+    </div>
+    <p class="resource">*The data is retrieved from coincap.io</p>
+  </div>
+</ion-content>
