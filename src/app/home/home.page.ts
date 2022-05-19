@@ -3,7 +3,7 @@ import { ToastController } from '@ionic/angular';
 import { ChartConfiguration, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { WebsocketService } from '../services/websocket.service';
-// import { retry } from 'rxjs';
+import { retry } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -89,7 +89,7 @@ export class HomePage {
     }
     const fullUrl = this.url + coin;
     this.wss.create(fullUrl);
-    this.wss.subject?.pipe().subscribe(async (res: any) => {
+    this.wss.subject?.pipe(retry()).subscribe(async (res: any) => {
       this.count += 1;
       const now = new Date();
       const time = `${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
